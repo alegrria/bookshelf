@@ -30,8 +30,6 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      console.log(this.state),
-      console.log(this.state.readBooks),
       <div className="app">
         {this.state.showSearchPage ? (
           <div className="search-books">

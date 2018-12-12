@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SelectShelf from './SelectShelf'
 
 class Books extends Component {
 
@@ -8,18 +9,12 @@ class Books extends Component {
 
     return (
       <ol className="books-grid"> {books.map((book) =>
-        <li>
-          <div key={book.id} className="book">
+        <li key={book.id} >
+          <div className="book">
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
               <div className="book-shelf-changer">
-                <select>
-                  <option value="move" disabled>Move to...</option>
-                  <option value="currentlyReading">Currently Reading</option>
-                  <option value="wantToRead">Want to Read</option>
-                  <option value="read">Read</option>
-                  <option value="none">None</option>
-                </select>
+                <SelectShelf book={book}/>
               </div>
             </div>
             <div className="book-title">
@@ -29,7 +24,7 @@ class Books extends Component {
           </div>
         </li>
       )}</ol>
-      )
+    )
   }
 }
 export default Books
