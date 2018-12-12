@@ -17,8 +17,9 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false
   }
+
+  changeShelf = this.changeShelf.bind(this)
 
   componentDidMount(){
       BooksAPI.getAll().then((allBooks) => {
@@ -34,7 +35,6 @@ class BooksApp extends React.Component {
     changeShelf(book, shelf) {
       BooksAPI.update(book, shelf).then(response => {
       book.shelf = shelf;
-      console.log(this)
       BooksAPI.getAll().then((allBooks) => {
         this.setState({
           allBooks,
@@ -81,19 +81,19 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <Books books={this.state.currentlyReadingBooks} changeShelf={this.changeShelf}/>
+                    <Books books={this.state.currentlyReadingBooks} changeShelf={this.changeShelf} />
                   </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
-                    <Books books={this.state.wantToReadBooks} changeShelf={this.changeShelf}/>
+                    <Books books={this.state.wantToReadBooks} changeShelf={this.changeShelf} />
                   </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <Books books={this.state.readBooks} changeShelf={this.changeShelf}/>
+                    <Books books={this.state.readBooks} changeShelf={this.changeShelf} />
                   </div>
                 </div>
               </div>
