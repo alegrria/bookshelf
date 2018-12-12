@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 
 class SelectShelf extends Component {
 
+  handleChange = (event) => {
+    this.props.changeShelf(this.props.book, event.target.value)
+  }
 
   render(){
-    const { book } = this.props
 
     return (
-      <select key={book.id}>
+      <select key={this.props.book.id} onChange={this.handleChange}>
         <option value="move" disabled>Move to...</option>
         <option value="currentlyReading">Currently Reading</option>
         <option value="wantToRead">Want to Read</option>
