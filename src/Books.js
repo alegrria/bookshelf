@@ -3,6 +3,10 @@ import SelectShelf from './SelectShelf'
 import PropTypes from 'prop-types';
 
 const Books = (props) => {
+  const propTypes = {
+  books: PropTypes.array.isRequired,
+  changeShelf: PropTypes.func.isRequired,
+};
 
     return (
       <ol className="books-grid"> {props.books.map((book) =>
