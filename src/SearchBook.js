@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import Books from './Books'
+import escapeRegExp from 'escape-string-regexp'
+import * as BooksAPI from './BooksAPI'
 
 class SearchBook extends Component {
 
@@ -13,18 +15,23 @@ class SearchBook extends Component {
   state = {
     query: '',
     books: this.props.books,
-    SEARCH_TERMS: ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS']
-  }
+    error: ''
+    }
 
-  updateQuery = (query = this.state.query) => {
-    if (this.state.SEARCH_TERMS.includes(query)) {
+  updateQuery = (query) => {
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+      BooksAPI.search(query, 20).then((allBooks) =>
       this.setState({
-        query: query.trim(),
-        books: this.props.books.filter((book) => book.title.includes(query) || book.authors.includes(query))
+        query: query,
+        books: allBooks.length > 0 ? allBooks.filter((book) => match.test(book.title)) : [],
+        error: allBooks.length > 0 ? 'Search successful' : 'Nothing was found on your search'
+      })).catch(function(e) {
+        console.log(e);
       })
     } else {
       this.setState({
-        query: query,
+        query: '',
         books: this.props.books
       })
     }
@@ -46,10 +53,10 @@ class SearchBook extends Component {
           <button className="close-search" onClick={() => this.props.history.push('/')}>Close</button>
           <div className="search-books-input-wrapper">
             <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)}/>
-
           </div>
         </div>
         <div className="search-books-results">
+          <p>{this.state.error}</p>
           <ol className="books-grid">
             <Books books={this.state.books} changeShelf={this.props.changeShelf}/>
           </ol>
