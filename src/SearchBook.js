@@ -10,29 +10,48 @@ class SearchBook extends Component {
     changeShelf: PropTypes.func.isRequired
   };
 
-  render(){
+  state = {
+    query: '',
+    books: this.props.books,
+    SEARCH_TERMS: ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS']
+  }
 
+  updateQuery = (query = this.state.query) => {
+    if (this.state.SEARCH_TERMS.includes(query)) {
+      this.setState({
+        query: query.trim(),
+        books: this.props.books.filter((book) => book.title.includes(query) || book.authors.includes(query))
+      })
+    } else {
+      this.setState({
+        query: query,
+        books: this.props.books
+      })
+    }
+  }
+
+  clearQuery = () => {
+    this.setState({
+      query: '',
+      books: this.props.books
+    })
+  }
+
+  render(){
+    console.log(this.state.books)
     return (
 
       <div className="search-books">
         <div className="search-books-bar">
           <button className="close-search" onClick={() => this.props.history.push('/')}>Close</button>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)}/>
 
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Books books={this.props.books} changeShelf={this.props.changeShelf}/>
+            <Books books={this.state.books} changeShelf={this.props.changeShelf}/>
           </ol>
         </div>
       </div>
