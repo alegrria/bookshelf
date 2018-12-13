@@ -1,8 +1,8 @@
 import React from 'react'
 import Books from './Books'
 import SearchBook from './SearchBook'
-import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -77,7 +77,9 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <Link to="/search"> Add a book</Link>
+              <Link to='/search'>
+                <button>Add a book</button>
+              </Link>
             </div>
           </div>
         )}/>
