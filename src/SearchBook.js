@@ -31,7 +31,8 @@ class SearchBook extends Component {
     } else {
       this.setState({
         query: '',
-        books: []
+        books: [],
+        error: ''
       })
     }
   }
@@ -39,7 +40,8 @@ class SearchBook extends Component {
   clearQuery = () => {
     this.setState({
       query: '',
-      books: []
+      books: [],
+      error: ''
     })
   }
 
