@@ -14,7 +14,7 @@ const Books = (props) => {
         <li key={book.id} >
           <div className="book">
             <div className="book-top">
-              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})`}}></div>
+              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : 'https://dummyimage.com/128x193/2e7c31/fff.png&text=Cover+Missing'})`}}></div>
               <div className="book-shelf-changer">
                 <SelectShelf book={book} changeShelf={props.changeShelf} allBooks={props.allBooks? props.allBooks : []}/>
               </div>
