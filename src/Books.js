@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import SelectShelf from './SelectShelf'
 import PropTypes from 'prop-types';
 
 const Books = (props) => {
-  const propTypes = {
+  Books.propTypes = {
   books: PropTypes.array.isRequired,
   changeShelf: PropTypes.func.isRequired,
 };
 
     return (
+
       <ol className="books-grid"> {props.books.map((book) =>
         <li key={book.id} >
           <div className="book">
