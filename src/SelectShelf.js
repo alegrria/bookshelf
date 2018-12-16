@@ -15,7 +15,7 @@ class SelectShelf extends Component {
   render(){
 
     return (
-      <select key={this.props.book.id} onChange={this.handleChange}>
+      <select key={this.props.book.id} value={this.props.book.shelf} onChange={this.handleChange}>
         <option value="move" disabled>Move to...</option>
         <option value="currentlyReading">Currently Reading</option>
         <option value="wantToRead">Want to Read</option>
