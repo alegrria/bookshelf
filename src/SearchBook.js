@@ -14,6 +14,7 @@ class SearchBook extends Component {
   state = {
     query: '',
     books: [],
+    allBooks: this.props.books,
     error: ''
     }
 
@@ -30,7 +31,7 @@ class SearchBook extends Component {
     } else {
       this.setState({
         query: '',
-        books: this.props.books
+        books: []
       })
     }
   }
@@ -38,12 +39,11 @@ class SearchBook extends Component {
   clearQuery = () => {
     this.setState({
       query: '',
-      books: this.props.books
+      books: []
     })
   }
 
   render(){
-    console.log(this.state.books)
 
     return (
 
@@ -57,7 +57,7 @@ class SearchBook extends Component {
         <div className="search-books-results">
           <p>{this.state.error}</p>
           <ol className="books-grid">
-            <Books books={this.state.books} changeShelf={this.props.changeShelf}/>
+            <Books books={this.state.books} changeShelf={this.props.changeShelf} allBooks={this.props.books}/>
           </ol>
         </div>
       </div>

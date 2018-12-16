@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Books = (props) => {
   Books.propTypes = {
   books: PropTypes.array.isRequired,
-  changeShelf: PropTypes.func.isRequired,
+  changeShelf: PropTypes.func.isRequired
 };
 
     return (
@@ -16,7 +16,7 @@ const Books = (props) => {
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})`}}></div>
               <div className="book-shelf-changer">
-                <SelectShelf book={book} changeShelf={props.changeShelf} />
+                <SelectShelf book={book} changeShelf={props.changeShelf} allBooks={props.allBooks? props.allBooks : []}/>
               </div>
             </div>
             <div className="book-title">
