@@ -1,5 +1,5 @@
 import React from 'react'
-import Books from './Books'
+import Shelf from './Shelf'
 import SearchBook from './SearchBook'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -46,24 +46,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <Books books={this.state.allBooks.filter((book) => book.shelf === 'currentlyReading')} changeShelf={this.changeShelf}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <Books books={this.state.allBooks.filter((book) => book.shelf === 'wantToRead')} changeShelf={this.changeShelf}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <Books books={this.state.allBooks.filter((book) => book.shelf === 'read')} changeShelf={this.changeShelf}/>
-                  </div>
-                </div>
+                <Shelf name={'Currently Reading'} books={this.state.allBooks.filter((book) => book.shelf === 'currentlyReading')} changeShelf={this.changeShelf}/>
+                <Shelf name={'Want to Read'} books={this.state.allBooks.filter((book) => book.shelf === 'wantToRead')} changeShelf={this.changeShelf}/>
+                <Shelf name={'Read'} books={this.state.allBooks.filter((book) => book.shelf === 'read')} changeShelf={this.changeShelf}/>
               </div>
             </div>
             <div className="open-search">
