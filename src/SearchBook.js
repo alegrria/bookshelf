@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import Books from './Books'
-import escapeRegExp from 'escape-string-regexp'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBook extends Component {
@@ -14,17 +13,16 @@ class SearchBook extends Component {
 
   state = {
     query: '',
-    books: this.props.books,
+    books: [],
     error: ''
     }
 
   updateQuery = (query) => {
     if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
       BooksAPI.search(query, 20).then((allBooks) =>
       this.setState({
         query: query,
-        books: allBooks.length > 0 ? allBooks.filter((book) => match.test(book.title)) : [],
+        books: allBooks.length > 0 ? allBooks : [],
         error: allBooks.length > 0 ? 'Search successful' : 'Nothing was found on your search'
       })).catch(function(e) {
         console.log(e);
@@ -45,6 +43,7 @@ class SearchBook extends Component {
   }
 
   render(){
+    console.log(this.state.books)
 
     return (
 
